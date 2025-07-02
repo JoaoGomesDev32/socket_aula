@@ -4,15 +4,15 @@ const http = require("http").createServer(app);
 
 const io = require("socket.io")(http);
 
+var usuarios = [];
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
 io.on("connection", (socket) => {
-  //io.emit('conectado','Estou conectado!');
-
   socket.on("chat message", (obj) => {
-    console.log(obj);
+    io.emit("chat message", obj);
   });
 });
 
